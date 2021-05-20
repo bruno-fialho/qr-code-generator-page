@@ -1,3 +1,5 @@
-const App = (): JSX.Element => <h2>Hello World</h2>;
+import Home from './pages/Home';
+
+const App = (): JSX.Element => <Home />;
 
 export default App;

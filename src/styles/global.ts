@@ -11,12 +11,19 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: #fff;
-    color: #212121;
+    background: #f1f3f4;
+    color: #202124;
+  }
+
+  body, input, button {
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
-    font-weight: 400;
     font-style: normal;
+  }
+
+  #root {
+    /* width: 100%; */
+    height: 100vh;
   }
 
   button, input {

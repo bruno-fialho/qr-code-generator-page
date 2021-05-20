@@ -53,7 +53,9 @@
         "labelAttributes": ["label"],
         "controlComponents": ["CustomInput"],
         "depth": 3
-      }]
+      }],
+      "import/prefer-default-export": "off",
+      "react/jsx-props-no-spreading": "off"
     },
     "settings": {
       "import/resolver": {
