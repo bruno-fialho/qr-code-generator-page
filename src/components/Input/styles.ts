@@ -7,7 +7,7 @@ export const Container = styled.div`
 
   display: flex;
   flex-direction: column;
-  align-content: center;
+  align-items: center;
 
   label {
     font-weight: 400;
@@ -36,6 +36,7 @@ export const Container = styled.div`
     input {
       margin-left: 1rem;
       max-width: 250px;
+      width: 72.2%;
     }
     label {
       padding: 0.6rem 0 0 0;
@@ -48,7 +49,7 @@ export const Container = styled.div`
     justify-content: space-between;
 
     input {
-      margin-left: 1rem;
+      max-width: 300px;
     }
     label {
       padding: 0.6rem 0 0 0;

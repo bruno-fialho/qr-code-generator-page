@@ -2,23 +2,14 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   position: absolute;
-  left: 50%;
-  /* top: 50%; */
-
+  top: 0px;
+  left: 0px;
   width: 100vw;
-  margin-left: -50vw;
-  /* width: 80vw; */
-  /* height: 90vh; */
-  /* margin-left: -40vw;
-  margin-top: -45vh; */
   border: 2px solid #202124;
   border-radius: 100px;
-  /* padding: 5vh 5vw; */
 
   @media (min-width: 720px) {
-    top: 50%;
     height: 100vh;
-    margin-top: -50vh;
   }
 `;
 
@@ -26,7 +17,6 @@ export const Header = styled.div`
   width: 100%;
   height: 12vh;
   padding: 1.5rem 3rem;
-  /* background: red; */
 
   display: flex;
   justify-content: center;
@@ -37,21 +27,22 @@ export const Title = styled.h2``;
 export const FormContent = styled.div`
   width: 100%;
   /* height: 45%; */
-  background: blue;
-  padding: 0.5rem 3rem;
+  /* background: blue; */
+  padding: 0.5rem 1rem;
 
   display: flex;
-  justify-content: center;
+  justify-items: center;
 
   /* flex: 1; */
 
   form {
-    background: green;
+    /* background: green; */
     width: 100%;
-    max-width: 360px;
+    /* max-width: 360px; */
 
     display: flex;
     flex-direction: column;
+    align-items: center;
     /* flex-wrap: wrap; */
   }
 
@@ -59,13 +50,37 @@ export const FormContent = styled.div`
     height: 25vh;
     padding: 0.5rem 1rem;
 
-    justify-content: space-between;
+    justify-content: center;
 
     form {
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
+      flex-direction: row;
+      max-width: 900px;
+      justify-content: space-between;
     }
+  }
+`;
+
+export const FormGroupOne = styled.div`
+  display: flex;
+  width: 100%;
+  max-width: 375px;
+  flex-direction: column;
+
+  @media (min-width: 720px) {
+    width: 50%;
+    max-width: 400px;
+  }
+`;
+
+export const FormGroupTwo = styled.div`
+  display: flex;
+  width: 100%;
+  max-width: 375px;
+  flex-direction: column;
+
+  @media (min-width: 720px) {
+    width: 50%;
+    max-width: 400px;
   }
 `;
 
@@ -73,30 +88,34 @@ export const ButtonContent = styled.div`
   width: 100%;
   height: 8vh;
   padding: 0.5rem 3rem;
-  background: red;
+  /* background: red; */
 
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center;
 `;
 
 export const QRCodeContent = styled.div`
   width: 100%;
-  height: 55vh;
+  height: 50vh;
   padding: 2rem 3rem;
 
   display: flex;
-  align-content: center;
+  /* align-items: center; */
   justify-content: center;
 
-  img {
+  #qrcode {
     max-width: 225px;
     height: auto;
     max-height: 225px;
+
+    svg {
+      max-width: 100%;
+    }
   }
 
   @media (min-width: 410px) {
-    img {
+    #qrcode {
       max-width: 250px;
       height: auto;
       max-height: 250px;
@@ -104,7 +123,7 @@ export const QRCodeContent = styled.div`
   }
 
   @media (min-width: 720px) {
-    img {
+    #qrcode {
       max-width: 300px;
       height: auto;
       max-height: 300px;

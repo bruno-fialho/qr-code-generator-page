@@ -1,16 +1,18 @@
 // import { Scope } from '@unform/core';
 import { Form } from '@unform/web';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { FormHandles, SubmitHandler } from '@unform/core';
+import QRCode from 'qrcode.react';
 import {
   Container,
   Header,
   Title,
   FormContent,
+  FormGroupOne,
+  FormGroupTwo,
   QRCodeContent,
   ButtonContent,
 } from './styles';
-import qrCodeExample from '../../assets/qr-example.png';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 
@@ -24,6 +26,7 @@ interface FormData {
 }
 
 function Home(): JSX.Element {
+  const [value, setValue] = useState<string>('');
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit: SubmitHandler<FormData> = ({
@@ -34,14 +37,18 @@ function Home(): JSX.Element {
     telefone,
     peso,
   }: FormData) => {
-    console.log({
-      cnpj,
-      produto,
-      lote,
-      empresa,
-      telefone,
-      peso,
-    });
+    const pesoString = peso.toString();
+    setValue(
+      `http://localhost:3000/data?cnjp=${cnpj}&produto=${produto}&lote=${lote}&empresa=${empresa}&telefone=${telefone}&peso=${pesoString}`,
+    );
+    // console.log({
+    //   cnpj,
+    //   produto,
+    //   lote,
+    //   empresa,
+    //   telefone,
+    //   peso,
+    // });
   };
 
   // const clearForm: SubmitHandler<FormData> = () => {
@@ -54,25 +61,41 @@ function Home(): JSX.Element {
         <Title>Gerador de QR CODE</Title>
       </Header>
       <FormContent>
-        <Form ref={formRef} onSubmit={handleSubmit}>
-          <Input name="cnpj" label="CNPJ" />
+        <Form id="qr-form" ref={formRef} onSubmit={handleSubmit}>
+          <FormGroupOne>
+            <Input name="cnpj" label="CNPJ" />
 
-          <Input name="produto" label="Produto" />
+            <Input name="produto" label="Produto" />
 
-          <Input name="lote" label="Lote" />
+            <Input name="lote" label="Lote" />
+          </FormGroupOne>
 
-          <Input name="empresa" label="Empresa" />
+          <FormGroupTwo>
+            <Input name="empresa" label="Empresa" />
 
-          <Input name="telefone" label="Telefone" />
+            <Input name="telefone" label="Telefone" />
 
-          <Input name="peso" label="Peso" />
+            <Input name="peso" label="Peso" />
+          </FormGroupTwo>
         </Form>
       </FormContent>
       <ButtonContent>
         <Button>Gerar QR Code</Button>
       </ButtonContent>
       <QRCodeContent>
-        <img src={qrCodeExample} alt="Example" />
+        <div id="qrcode">
+          {value && (
+            <QRCode
+              value={value}
+              renderAs="svg"
+              level="L"
+              size={300}
+              fgColor="#202124"
+              bgColor="#f1f3f4"
+              key="level-L"
+            />
+          )}
+        </div>
       </QRCodeContent>
     </Container>
   );

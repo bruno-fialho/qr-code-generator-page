@@ -21,14 +21,9 @@ const GlobalStyle = createGlobalStyle`
     font-style: normal;
   }
 
-  #root {
-    /* width: 100%; */
-    height: 100vh;
-  }
-
   button, input {
     outline: none;
-    border: none;
+    /* border: none; */
     text-decoration: none;
     color: inherit;
     &:focus,
@@ -37,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
     &:link,
     &:active {
       outline: none;
-      border: none;
+      /* border: none; */
       text-decoration: none;
     }
   }

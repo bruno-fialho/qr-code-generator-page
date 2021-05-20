@@ -6,7 +6,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 function Button({ children, ...rest }: ButtonProps): JSX.Element {
   return (
-    <Container type="button" {...rest}>
+    <Container type="submit" form="qr-form" {...rest}>
       {children}
     </Container>
   );
