@@ -11,8 +11,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: #f1f3f4;
-    color: #202124;
+    background: #fff;
+    color: #000;
   }
 
   body, input, button {
@@ -23,7 +23,6 @@ const GlobalStyle = createGlobalStyle`
 
   button, input {
     outline: none;
-    /* border: none; */
     text-decoration: none;
     color: inherit;
     &:focus,
@@ -32,9 +31,16 @@ const GlobalStyle = createGlobalStyle`
     &:link,
     &:active {
       outline: none;
-      /* border: none; */
       text-decoration: none;
     }
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active  {
+      -webkit-box-shadow: 0 0 0 30px white inset !important;
+      box-shadow: 0 0 0 30px white inset !important;
   }
 
   h2 {

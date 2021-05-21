@@ -1,6 +1,6 @@
 import { InputHTMLAttributes, useEffect, useRef } from 'react';
 import { useField } from '@unform/core';
-import { Container } from './styles';
+import { Container, InputSpanContainer } from './styles';
 
 interface Props {
   name: string;
@@ -10,7 +10,7 @@ interface Props {
 type InputProps = InputHTMLAttributes<HTMLInputElement> & Props;
 
 function Input({ name, label, ...rest }: InputProps): JSX.Element {
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const { fieldName, defaultValue = '', registerField, error } = useField(name);
 
@@ -26,14 +26,18 @@ function Input({ name, label, ...rest }: InputProps): JSX.Element {
     <Container>
       <label htmlFor={fieldName}>{label}</label>
 
-      <input
-        ref={inputRef}
-        id={fieldName}
-        defaultValue={defaultValue}
-        {...rest}
-      />
+      <InputSpanContainer>
+        <input
+          ref={inputRef}
+          id={fieldName}
+          autoComplete="off"
+          defaultValue={defaultValue}
+          className={error ? 'has-error' : ''}
+          {...rest}
+        />
 
-      {error && <span style={{ color: '#f00' }}>{error}</span>}
+        {error ? <span style={{ color: '#f00' }}>{error}</span> : <span />}
+      </InputSpanContainer>
     </Container>
   );
 }

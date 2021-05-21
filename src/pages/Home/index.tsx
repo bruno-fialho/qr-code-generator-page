@@ -3,6 +3,7 @@ import { Form } from '@unform/web';
 import { useRef, useState } from 'react';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import QRCode from 'qrcode.react';
+import * as Yup from 'yup';
 import {
   Container,
   Header,
@@ -15,6 +16,7 @@ import {
 } from './styles';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
+import getValidationErrors from '../../utils/getValidationErrors';
 
 interface FormData {
   cnpj: string;
@@ -29,7 +31,7 @@ function Home(): JSX.Element {
   const [value, setValue] = useState<string>('');
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit: SubmitHandler<FormData> = ({
+  const handleSubmit: SubmitHandler<FormData> = async ({
     cnpj,
     produto,
     lote,
@@ -37,23 +39,44 @@ function Home(): JSX.Element {
     telefone,
     peso,
   }: FormData) => {
-    const pesoString = peso.toString();
-    setValue(
-      `http://localhost:3000/data?cnjp=${cnpj}&produto=${produto}&lote=${lote}&empresa=${empresa}&telefone=${telefone}&peso=${pesoString}`,
-    );
-    // console.log({
-    //   cnpj,
-    //   produto,
-    //   lote,
-    //   empresa,
-    //   telefone,
-    //   peso,
-    // });
-  };
+    try {
+      formRef.current?.setErrors({});
 
-  // const clearForm: SubmitHandler<FormData> = () => {
-  //   formRef.current.clearField('cnpj');
-  // };
+      const schema = Yup.object().shape({
+        cnpj: Yup.string()
+          .required('CNPJ obrigatório')
+          .length(14, 'Digite um CNPJ válido'),
+        produto: Yup.string().required('Produto obrigatório'),
+        lote: Yup.string().required('Lote obrigatório'),
+        empresa: Yup.string().required('Empresa obrigatória'),
+        telefone: Yup.string()
+          .required('Telefone obrigatório')
+          .min(8, 'Digite um telefone válido'),
+        peso: Yup.number()
+          .typeError('Peso deve ser um número')
+          .required('Peso obrigatório')
+          .positive('O peso não pode ser negativo')
+          .min(1, 'Digite um peso maior que 1 (Kg)'),
+      });
+
+      await schema.validate(
+        { cnpj, produto, lote, empresa, telefone, peso },
+        {
+          abortEarly: false,
+        },
+      );
+
+      const pesoString = peso.toString();
+
+      setValue(
+        `http://localhost:3000/data?cnjp=${cnpj}&produto=${produto}&lote=${lote}&empresa=${empresa}&telefone=${telefone}&peso=${pesoString}`,
+      );
+    } catch (err) {
+      const errors = getValidationErrors(err);
+
+      formRef.current?.setErrors(errors);
+    }
+  };
 
   return (
     <Container>
@@ -63,19 +86,39 @@ function Home(): JSX.Element {
       <FormContent>
         <Form id="qr-form" ref={formRef} onSubmit={handleSubmit}>
           <FormGroupOne>
-            <Input name="cnpj" label="CNPJ" />
+            <Input
+              name="cnpj"
+              label="CNPJ"
+              placeholder="CNPJ (somente números)"
+            />
 
-            <Input name="produto" label="Produto" />
+            <Input
+              name="produto"
+              label="Produto"
+              placeholder="Nome do Produto"
+            />
 
-            <Input name="lote" label="Lote" />
+            <Input name="lote" label="Lote" placeholder="Código do Lote" />
           </FormGroupOne>
 
           <FormGroupTwo>
-            <Input name="empresa" label="Empresa" />
+            <Input
+              name="empresa"
+              label="Empresa"
+              placeholder="Nome da Empresa"
+            />
 
-            <Input name="telefone" label="Telefone" />
+            <Input
+              name="telefone"
+              label="Telefone"
+              placeholder="Número do Telefone"
+            />
 
-            <Input name="peso" label="Peso" />
+            <Input
+              name="peso"
+              label="Peso"
+              placeholder="Peso do Produto em Kg"
+            />
           </FormGroupTwo>
         </Form>
       </FormContent>
@@ -90,8 +133,8 @@ function Home(): JSX.Element {
               renderAs="svg"
               level="L"
               size={300}
-              fgColor="#202124"
-              bgColor="#f1f3f4"
+              fgColor="#000"
+              bgColor="#fff"
               key="level-L"
             />
           )}

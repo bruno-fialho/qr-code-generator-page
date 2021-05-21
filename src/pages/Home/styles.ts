@@ -5,8 +5,11 @@ export const Container = styled.div`
   top: 0px;
   left: 0px;
   width: 100vw;
-  border: 2px solid #202124;
+  border: 1px solid #202124;
   border-radius: 100px;
+
+  display: flex;
+  flex-direction: column;
 
   @media (min-width: 720px) {
     height: 100vh;
@@ -15,46 +18,45 @@ export const Container = styled.div`
 
 export const Header = styled.div`
   width: 100%;
-  height: 12vh;
+  height: 10vh;
   padding: 1.5rem 3rem;
 
   display: flex;
   justify-content: center;
 `;
 
-export const Title = styled.h2``;
+export const Title = styled.h2`
+  font-size: 1.2rem;
+
+  @media (min-width: 410px) {
+    font-size: 1.5rem;
+  }
+`;
 
 export const FormContent = styled.div`
   width: 100%;
-  /* height: 45%; */
-  /* background: blue; */
   padding: 0.5rem 1rem;
 
   display: flex;
   justify-items: center;
 
-  /* flex: 1; */
-
   form {
-    /* background: green; */
     width: 100%;
-    /* max-width: 360px; */
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* flex-wrap: wrap; */
   }
 
   @media (min-width: 720px) {
-    height: 25vh;
+    height: 35vh;
     padding: 0.5rem 1rem;
 
     justify-content: center;
 
     form {
       flex-direction: row;
-      max-width: 900px;
+      max-width: 820px;
       justify-content: space-between;
     }
   }
@@ -68,7 +70,7 @@ export const FormGroupOne = styled.div`
 
   @media (min-width: 720px) {
     width: 50%;
-    max-width: 400px;
+    max-width: 350px;
   }
 `;
 
@@ -80,15 +82,14 @@ export const FormGroupTwo = styled.div`
 
   @media (min-width: 720px) {
     width: 50%;
-    max-width: 400px;
+    max-width: 350px;
   }
 `;
 
 export const ButtonContent = styled.div`
   width: 100%;
-  height: 8vh;
+  height: 6vh;
   padding: 0.5rem 3rem;
-  /* background: red; */
 
   display: flex;
   align-items: center;
@@ -97,11 +98,10 @@ export const ButtonContent = styled.div`
 
 export const QRCodeContent = styled.div`
   width: 100%;
-  height: 50vh;
+  height: 40vh;
   padding: 2rem 3rem;
 
   display: flex;
-  /* align-items: center; */
   justify-content: center;
 
   #qrcode {
